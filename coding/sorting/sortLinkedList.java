@@ -11,11 +11,11 @@ public class sortLinkedList {
 		     int val = obj.get(i);
 		     System.out.println("val:"+val);
 		     if(val == 0) 
-			     count0 = 1+ count0;
+			     count0 += 1;
 		     if(val == 1)
-			     count1 = 1+ count1;
+			     count1 += 1;
 		     if(val == 2)
-			     count2 =1+ count2;
+			     count2 +=1;
 	     }
 	     System.out.println("count0 :"+count0+" count1: "+count1+ " count2: "+count2); 
              for(i = 0;i<count0;i++)
