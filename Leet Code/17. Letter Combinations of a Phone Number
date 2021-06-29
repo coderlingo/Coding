@@ -1,0 +1,35 @@
+/**
+* 17. Letter Combinations of a Phone Number
+* Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+* A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+*/
+
+class Solution {
+    public void dfs(String digits, int idx1, int idx2, String cur, List<String> res,Map<Integer,String> map) {
+        if(cur.length() == digits.length()) {
+            res.add(cur);
+            return;
+        }
+        int x = digits.charAt(idx1)-'0';
+        for(int i =idx2;i<map.get(x).length();i++) {
+            String temp = cur+(map.get(x).charAt(i));
+            dfs(digits,idx1+1,0,temp,res,map);
+        }
+    }
+    public List<String> letterCombinations(String digits) {     
+        Map<Integer,String> map = new HashMap<>();
+        map.put(2,"abc");
+        map.put(3,"def");
+        map.put(4,"ghi");
+        map.put(5,"jkl");
+        map.put(6,"mno");
+        map.put(7,"pqrs");
+        map.put(8,"tuv");
+        map.put(9,"wxyz");
+        List<String> res = new LinkedList<>();
+        if(digits.length()==0)
+            return res;
+        dfs(digits,0,0,"",res,map);
+        return res;
+    }
+}
