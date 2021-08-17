@@ -1,0 +1,25 @@
+/**
+* 41. First Missing Positive
+* Given an unsorted integer array nums, return the smallest missing positive integer.
+* You must implement an algorithm that runs in O(n) time and uses constant extra space.
+*/
+
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int n = nums.length;
+        int i,j;
+        for(i=0;i<n;i++) {
+            j = nums[i]-1;
+            while(j>=0 && j<n) {
+                int temp = nums[j]-1;
+                nums[j] = Integer.MIN_VALUE;
+                j = temp;
+            }
+        }
+        for(i = 0;i<n;i++) {
+            if(nums[i]!=Integer.MIN_VALUE)
+                return i+1;
+        }
+        return n+1;
+    }
+}
