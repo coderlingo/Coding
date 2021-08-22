@@ -1,0 +1,30 @@
+/**
+* 338. Counting Bits
+* Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+*/
+
+class Solution {
+    public int[] countBits(int n) {
+        //List<Integer> result  = new LinkedList<>();
+        if(n==0)
+            return new int[]{0};
+        if(n==1)
+            return new int[]{0,1};
+        int[] result = new int[n+1];
+        result[0] = 0;
+        result[1] =1;
+        
+        int i = 1;
+        while(i<=n) {
+            int len = i;
+            for(int j = 0;j<len;j++) {
+                result[i] = result[j]+1;
+                i++;
+                if(i>n)
+                    break;
+            }
+            
+        }
+        return result;
+    }
+}
