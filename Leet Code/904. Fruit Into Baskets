@@ -1,0 +1,54 @@
+/**
+* 904. Fruit Into Baskets
+* You are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits where fruits[i] is the type of fruit the ith tree produces.
+* You want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:
+* You only have two baskets, and each basket can only hold a single type of fruit. There is no limit on the amount of fruit each basket can hold.
+* Starting from any tree of your choice, you must pick exactly one fruit from every tree (including the start tree) while moving to the right. The picked fruits must fit in one of your baskets.
+* Once you reach a tree with fruit that cannot fit in your baskets, you must stop.
+* Given the integer array fruits, return the maximum number of fruits you can pick.
+*/
+
+class Solution {
+    public int totalFruit(int[] tree) {
+        if(tree.length ==1) {
+            return 1;
+        }
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(tree[0],1);
+        int start = 0;
+        int i =1;
+        int num2;
+        int count1;
+        while(i<tree.length && map.containsKey(tree[i])) {
+            map.put(tree[i],map.get(tree[i])+1);
+            i++;
+        }
+        if(i==tree.length) 
+            return tree.length;
+        map.put(tree[i],1);
+        int end = i+1;
+        int max = end-start;
+        while(end<tree.length) {
+            if(map.containsKey(tree[end])) {
+                map.put(tree[end],map.get(tree[end])+1);
+                end++;
+                
+            } else {
+                while(true) {
+                    map.put(tree[start],map.get(tree[start])-1);
+                    if(map.get(tree[start]) == 0) {
+                        map.remove(tree[start]);
+                        start++;
+                        map.put(tree[end],0);
+                        break;
+                    }
+                    start++;
+                }
+            }
+            if(max<end-start) {
+                max = end-start;
+            }
+        }
+        return max;
+    }
+}
