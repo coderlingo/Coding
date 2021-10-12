@@ -1,1 +1,0 @@
-This directory contains all leet code questions solved so far. 
