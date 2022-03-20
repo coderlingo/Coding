@@ -1,0 +1,44 @@
+/**
+* 112. Path Sum
+* Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
+* A leaf is a node with no children.
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPath(TreeNode node , int target, int cur) {
+        if(node.left  == null && node.right==null){
+            if(target == cur+node.val) {
+                return true;
+            }
+            return false;
+        }
+        boolean right = false;
+        boolean left = false;
+        if(node.left!=null) {
+            left = hasPath(node.left, target,cur+node.val);
+        }
+        if(node.right!=null) 
+            right = hasPath(node.right,target,cur+node.val);
+        return right|| left;
+        
+    }
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null)
+            return false;
+        return hasPath(root,targetSum,0);
+    }
+}

@@ -1,0 +1,31 @@
+/**
+* 152. Maximum Product Subarray
+* Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+* It is guaranteed that the answer will fit in a 32-bit integer.
+* A subarray is a contiguous subsequence of the array.
+*/
+
+class Solution {
+    public int getMax(int a,int b,int c) {
+        int m1 = Math.max(a,b);
+        return Math.max(m1,c);
+    }
+    public int getMin(int a,int b,int c) {
+        int m1 = Math.min(a,b);
+        //System.out.println(m1+" "+Math.min(m1,c));
+        return Math.min(m1,c);
+    }
+    public int maxProduct(int[] nums) {
+        int curMax = nums[0];
+        int curMin = nums[0];
+        int res = curMax;
+        for(int i = 1;i<nums.length;i++) {
+            int temp = curMax;
+            curMax = getMax(nums[i],nums[i]*curMax,nums[i]*curMin);
+            curMin = getMin(nums[i],nums[i]*temp,nums[i]*curMin);
+            res = Math.max(res,curMax);
+        }
+        return res;
+        
+    }
+}

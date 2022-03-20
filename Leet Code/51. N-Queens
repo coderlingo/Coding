@@ -1,0 +1,44 @@
+/**
+* 51. N-Queens
+* The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+* Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+* Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+*/
+
+class Solution {
+    List<List<String>> result;
+    boolean valid(int i,int j,int[] arr) {
+        for(int p=0;p<i;p++) {
+            if(j==arr[p] || i==p || Math.abs(p-i) == Math.abs(arr[p]-j))
+                return false;
+        }
+        return true;
+    }
+    public void isPossible(int row,int n, int[] arr,List<char[]> res) {
+        if(row>=n){
+            List<String> l = res.stream().map(e->new String(e)).collect(Collectors.toList());
+            result.add(l);
+            return ;
+        }
+        for(int i =0;i<n;i++) {
+            if(valid(row,i,arr)) {
+                arr[row] = i;
+                res.get(row)[i] = 'Q';
+                isPossible(row+1,n,arr,res);
+                res.get(row)[i]='.';
+            }
+        }     
+    }
+    public List<List<String>> solveNQueens(int n) {
+        int[] arr = new int[n];
+        result = new LinkedList<>();
+        List<char[]> r = new LinkedList<>();
+        for(int i =0;i<n;i++) {
+            char[] ch = new char[n];
+            Arrays.fill(ch,'.');
+            r.add(ch);
+        }
+        isPossible(0,n,arr,r);
+        return result;
+    }
+}

@@ -1,0 +1,30 @@
+/**
+* 442. Find All Duplicates in an Array
+* Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears once or twice, return an array of all the integers that appears twice.
+* You must write an algorithm that runs in O(n) time and uses only constant extra space.
+*/
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        Set<Integer> result = new HashSet<>();
+        // [4,*,2,*,8,2,*,1]
+        // [0.1.2.3.4.5.6.7] 
+        int count = 0;
+        for(int i =0;i<nums.length;i++) {
+            int k = nums[i];
+            while(k>=1 && k<=nums.length) {
+                int temp = nums[k-1];
+                if((temp == 1 && count>0) || (temp == Integer.MAX_VALUE)) {
+                    result.add(k);
+                }
+                if(temp==1)
+                    count++;
+                nums[k-1] = Integer.MAX_VALUE;
+                k = temp;
+            }
+            
+        }
+        return new LinkedList<>(result);
+        
+    }
+}
